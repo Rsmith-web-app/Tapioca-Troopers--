@@ -1,34 +1,64 @@
+const path = require('path');
+const authRoutes = require('./routes/auth');
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
-const PORT = process.env.PORT || 3000;
-const {MongoClient, ServerApiVersion, version} = require('mongoose');
+const PORT = process.env.PORT || 8080;
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const userModel = require('./models/user.model');
+const { error } = require('console');
+
 
 dotenv.config();
 const connectionString = process.env.MONGO_DB_CONNECTION_STRING;
 
-
 //Mongo Client setup
-const client = MongoClient(connectionString, {
-    ServerApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true
+const connectToDB = async () => {
+    try {
+        await mongoose.connect(connectionString, { useUnifiedTopology: true, });
+        console.log('connected to MongoDB')
+    } catch (error) {
+        console.log(`the following error occured: ${error}`) 
+    }
+}
+connectToDB();
+//Insert MongoDB Connection - Dani Baker
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from public folder
+
+app.get('/', (req, res) => {
+    res.redirect('/login')
+})
+app.get('/login', (req, res) => {
+    res.render('Login', { message: null });
+});
+app.get('/api/register', (req, res) => {
+    res.render('Register', { message: null });
+})
+
+app.post("/api/auth/register", async (req, res) => {
+    const { name, email, password } = req.body;
+
+    try {
+        // Check if user already exists
+        const existingUser = await userModel.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists" });
+        }
+        const newUser = new userModel({ name, email, password });
+        await newUser.save();
+        res.status(201).json({ message: "User registered successfully", user: newUser });
+    } catch (error) {
+        res.status(500).json({ message: `Registration Failed: ${error.message}`});
     }
 });
 
-//connect to MongoDb
-const MongoConnect = async ()  => {
-    try {
-        client.connect();
-        console.log('conneced to MongoDB')
-    } catch (error) {
-        console.log(`the following error occured: ${error}`)
-    }
-}
 
-//Insert MongoDB Connection - Dani Baker
-app.set('view engine', 'ejs');
 //add mongodb connection logic
 
 
