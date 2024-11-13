@@ -19,16 +19,6 @@ router.get('/register', (req, res) => {
 });
 
 // Handle registration logic
-router.post('/register', (req, res) => {
-  const { username, email, password } = req.body;
 
-  // Simulate registration validation
-  if (!username || !email || !password) {
-    return res.render('register', { message: 'All fields are required.' });
-  }
-
-  console.log('User registered:', { username, email });
-  res.redirect('/api/auth/login');
-});
 
 module.exports = router;
