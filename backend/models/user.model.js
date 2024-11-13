@@ -3,8 +3,7 @@ const bcrypt = require('bcrypt');
 
 //model for user accounts
 const userSchema = new mongoose.Schema({
-    username: {type: String, maxlength: [10], default: 'Anonymous', unique: true},
-    name: {type: String, maxlength: [30]},
+    username: {type: String, maxlength: [50]},
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, unique: true },
     isVerified: { type: Boolean, default: false },

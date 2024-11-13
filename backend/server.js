@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const userModel = require('./models/user.model');
+// const userModel = require('./models/user.model');
 const { error } = require('console');
 
 
@@ -40,24 +40,6 @@ app.get('/login', (req, res) => {
 });
 
 app.use('/api', authRoutes)
-
-app.post("/api/auth/register", async (req, res) => {
-    const { name, email, password } = req.body;
-
-    try {
-        // Check if user already exists
-        const existingUser = await userModel.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: "User already exists" });
-        }
-        const newUser = new userModel({ name, email, password });
-        await newUser.save();
-        res.status(201).json({ message: "User registered successfully", user: newUser });
-    } catch (error) {
-        res.status(500).json({ message: `Registration Failed: ${error.message}`});
-    }
-});
-
 
 //add mongodb connection logic
 
