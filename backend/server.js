@@ -10,6 +10,7 @@ const userModel = require('./models/user.model');
 const { error } = require('console');
 
 
+
 dotenv.config();
 const connectionString = process.env.MONGO_DB_CONNECTION_STRING;
 
@@ -37,9 +38,8 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('Login', { message: null });
 });
-app.get('/api/register', (req, res) => {
-    res.render('Register', { message: null });
-})
+
+app.use('/api', authRoutes)
 
 app.post("/api/auth/register", async (req, res) => {
     const { name, email, password } = req.body;
