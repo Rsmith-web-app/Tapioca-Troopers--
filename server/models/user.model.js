@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 
 //model for user accounts
 const userSchema = new mongoose.Schema({
-    username: {type: String, maxlength: [50]},
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true, unique: true },
+    username: { type: String, maxlength: [20, 'Username cannot exceed 20 characters'], required: [true, 'Username is required'], trim: true },
+    email: { type: String, required: true, unique: true, match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address']  },
+    password: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
 });
 
@@ -17,6 +17,6 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
- const User = mongoose.model('User', userSchema);
- module.exports = User;
+const User = mongoose.model('User', userSchema);
+module.exports = User;
 

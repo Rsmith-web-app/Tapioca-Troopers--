@@ -30,8 +30,8 @@ router.post("/auth/register", async (req, res) => {
       if (existingUser) {
           return res.status(400).json({ message: "User already exists" });
       }
-      if (username === await userModel.findOne({username}) || username === ""); {
-        let username = "User" + Math.floor(Math.random()).toString();
+      if (username === await userModel.findOne({username}) || username.length <= 0); {
+        this.username = "User" + Math.floor(Math.random()).toString();
       }
       const newUser = new userModel({ username, email, password });
       await newUser.save();

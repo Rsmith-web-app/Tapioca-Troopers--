@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css';
+import {FaUser} from 'react-icons/fa'
+import './styles/Navbar.css';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,16 +13,17 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-logo">
-                <Link to="/">MyWebsite</Link>
+                <Link to="/">Tapioca Troopers</Link>
             </div>
             <div className="menu-toggle" onClick={toggleMenu}>
                 &#9776;
             </div>
             <ul className={`navbar-links ${isMenuOpen ? 'show' : ''}`}>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/services">Services</Link></li>
+                <li><Link to="/">Feed</Link></li>
+                <li><Link to="/about">Profile</Link></li>
+                <li><Link to="/services">Categories</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
+                
             </ul>
         </nav>
     );
