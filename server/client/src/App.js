@@ -5,30 +5,34 @@ import './App.css';
 
 // imports
 import Login from './components/Login';
+import Registration from './components/Registration';
 import Home from './components/Home';
+import Profile from './components/Profile';
 
 
 // Page Components
 
-const About = () => <h1>About Us</h1>;
+
 const Services = () => <h1>Our Services</h1>;
 const Contact = () => <h1>Contact Us</h1>;
 
 const App = () => {
     return (
-        
+        <>
         <Router>
+            
             <div>
-                <Navbar /> {/* Navigation Bar */}
-                <Login />
                 <Routes>
+                    <Route path='/register' element={<Registration />}></Route>
+                    <Route path="/login" element={<Login />}></Route>
                     <Route path="/" element={<Home />} />
-                    <Route path="/about" element={<About />} />
+                    <Route path="/profile" element={<Profile />} />
                     <Route path="/services" element={<Services />} />
                     <Route path="/contact" element={<Contact />} />
                 </Routes>
             </div>
         </Router>
+        </>
     );
 };
 

@@ -1,16 +1,17 @@
 const path = require('path');
+const cors = require("cors");
 const authRoutes = require('./routes/auth');
+const postRoutes = require("./routes/Post")
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 8080;
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-// const userModel = require('./models/user.model');
 const { error } = require('console');
 
 
-
+app.use(express.json());
 dotenv.config();
 const connectionString = process.env.MONGO_DB_CONNECTION_STRING;
 
@@ -28,15 +29,18 @@ connectToDB();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(cors({ origin: "http://localhost:3000" }));
+
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from public folder
 
-app.get('/', (req, res) => {
-    res.redirect('/login')
-})
 
-app.use('/api', authRoutes)
+
+app.use('/api', authRoutes) // login and registration routes
+app.use('/api', postRoutes); //Posts route
+
+
 
 //add mongodb connection logic
 

@@ -18,7 +18,7 @@ padding: 20px;
     width: 100%;
     text-align: center;
 }
-#name, #email {
+#name, #email, #password {
     display: flex;
     align-self: center;
     width: 80%;
