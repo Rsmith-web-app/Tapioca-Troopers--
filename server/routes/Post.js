@@ -1,6 +1,8 @@
 const express = require("express");
 const Post = require("../models/post.model.js");
 const { verifyToken } = require("../controllers/auth");
+const Comment = require("../models/comment.model.js"); 
+
 
 const router = express.Router();
 
@@ -76,5 +78,37 @@ router.delete("/post/:id", verifyToken, async (req, res) => {
         res.status(500).json({ message: "Failed to delete post", error: error.message });
     }
 });
+
+// Add comments
+router.post("/post/:id/comment", verifyToken, async (req, res) => {
+    const {id} = req.params; 
+    const {content} = req.body;
+
+    try {
+        if (!content || typeof content !== "string") {
+            return res.status(400).json({message: 'failed to submit comment'})
+        }
+        const post = await Post.findById(id);
+        if (!post) return res.status(400).json({message: 'post not found'});
+
+        // adds new comment
+
+        const newComment = new Comment({
+            content,
+            post: id,
+            author: req.user.id,
+            createdAt
+        });
+
+        await newComment.save();
+        post.comments.push(newComment._id);
+        await post.save();
+
+        res.status(201).json({ message: "Comment added successfully", comment: newComment });
+
+    } catch (error) {
+        res.status(500).json({ message: "Failed to add comment", error: error.message });
+    }
+})
 
 module.exports = router;
