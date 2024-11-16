@@ -25,7 +25,7 @@ const connectToDB = async () => {
     }
 }
 connectToDB();
-//Insert MongoDB Connection - Dani Baker
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
