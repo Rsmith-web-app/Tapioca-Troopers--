@@ -39,12 +39,10 @@ router.put('/post/:id', async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
-
         //checks if user logged in is the author
         if (post.author !== req.User.alias) {
             return res.status(403).json({ error: 'You can only edit your own posts' });
         }
-
         //Update the post
         post.title = title || post.title;
         post.content = content || post.content;
@@ -65,12 +63,10 @@ router.delete('/post/:id', verifyJWT, async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
-
         //Ensure the logged in user is the author of the post
         if (post.alias !== req.user.alias) {
             return res.status(403).json({ message: 'you can only delete your own posts' });
         }
-
         await post.delete();
         res.status(200).json({ message: 'Post Deleted' })
     } catch (error) {
