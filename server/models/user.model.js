@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+import mongoose from "mongoose";
+import bcrypt from 'bcrypt';
+import {Schema} from 'mongoose';
 
-//model for user accounts
-const userSchema = new mongoose.Schema({
-    username: { type: String, maxlength: [20, 'Username cannot exceed 20 characters'], required: [true, 'Username is required'], trim: true },
-    email: { type: String, required: true, unique: true, match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address']  },
-    password: { type: String, required: true },
-    isVerified: { type: Boolean, default: false },
+//user model
+const userSchema = new Schema({
+  alias: {type: String, maxLength: [12, 'Alias cannot be longer thant 12 characters'], required: [true, 'An alias is required'], trim: true},
+  email: {type: String, required: true, unique: true, match: [/^\S+@\S+\.\S+$/, 'Enter a valid email'] },
+  password: {type: String, required: true },
 });
 
 userSchema.pre('save', async function (next) {
@@ -18,5 +18,4 @@ userSchema.pre('save', async function (next) {
 });
 
 const User = mongoose.model('User', userSchema);
-module.exports = User;
-
+export default User;
