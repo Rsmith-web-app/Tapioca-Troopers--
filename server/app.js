@@ -1,8 +1,10 @@
-import path from 'path';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import  mongoose  from 'mongoose';
+import mongoose from 'mongoose';
 import express from 'express';
+import bodyParser from 'body-parser';
+import authRoutes from "./routes/auth.routes.js";
+import postRoutes from "./routes/post.routes.js";
 
 dotenv.config();
 
@@ -11,16 +13,22 @@ const app = express();
 const url = process.env.MONGODB_CONNECTIONSTRING;
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// Verify and connect to MongoDB
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((error) => console.log(`The following error occurred: ${error}`));
 
-// verify and connect to MongoDB
+// Post Routes
+app.use('/api', postRoutes);
 
-mongoose.connect(url)
-.then(() => console.log('connected to MongoDB'))
-.catch((error) => `the following error occured: ${error}`)
+// Login Routes
+app.use('/api', authRoutes);
 
 try {
-    app.listen(port, () => console.log(`server started on port ${port}`))
+    app.listen(port, () => console.log(`Server started on port ${port}`));
 } catch (error) {
-    console.log(`An error occured: ${error}`)
+    console.log(`An error occurred: ${error}`);
 }
