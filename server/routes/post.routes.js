@@ -11,11 +11,11 @@ router.post('/post', verifyJWT, async (req, res) => {
     let { title, content, mediaUrl } = req.body;
 
     try {
-        const newPost = new Post({ title, content, mediaUrl, alias: req.User.alias });
+        const newPost = new Post({ title, content, mediaUrl, author: req.user.id });
         await newPost.save();
         res.status(201).json({ message: 'post created' })
     } catch (error) {
-        res.status(500).json({ error: `Failed to upload post: ${error.message}` })
+        res.status(500).json({ error: `Failed to create post: ${error.message}` })
     }
 });
 
