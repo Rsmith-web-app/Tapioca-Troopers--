@@ -8,9 +8,9 @@ import postRoutes from "./routes/post.routes.js";
 
 dotenv.config();
 
-const port = process.env.PORT || 3050;
+const port = process.env.PORT || 3060;
 const app = express();
-const url = process.env.MONGODB_CONNECTIONSTRING;
+const url = process.env.MONGO_DB_CONNECTION_STRING;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -30,5 +30,5 @@ app.use('/api', authRoutes);
 try {
     app.listen(port, () => console.log(`Server started on port ${port}`));
 } catch (error) {
-    console.log(`An error occurred: ${error}`);
+    console.log(`An error occurred: ${error.message}`);
 }
