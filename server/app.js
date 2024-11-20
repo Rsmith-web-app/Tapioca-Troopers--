@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import authRoutes from "./routes/auth.routes.js";
 import postRoutes from "./routes/post.routes.js";
 
+
 dotenv.config();
 
 const port = process.env.PORT || 3060;

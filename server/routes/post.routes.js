@@ -2,16 +2,24 @@ import express from 'express';
 import Post from "../models/post.model.js";
 import verifyJWT from "../controllers/authorization.js";
 import Comment from "../models/comment.model.js";
+import multer from 'multer';
+import {uploadToGoogleCloud, makeBucketPublic} from "./controllers/cloud.js";
 
 
+const upload = multer({dest: '/upload'});
 const router = express.Router();
 
 //Create a new Post
-router.post('/post', verifyJWT, async (req, res) => {
-    let { title, content, mediaUrl } = req.body;
+router.post('/post', verifyJWT, upload.single('media'), async (req, res) => {
+    let { title, content } = req.body;
+
 
     try {
         const newPost = new Post({ title, content, mediaUrl, alias: req.User.alias });
+        let mediaUrl = null;
+        if (req.file) {
+            mediaUrl = await uploadToGoogleCloud(req.file);
+        }
         await newPost.save();
         res.status(201).json({ message: 'post created' })
     } catch (error) {
