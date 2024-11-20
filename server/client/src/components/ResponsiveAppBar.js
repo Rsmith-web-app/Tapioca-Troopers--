@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 const pages = ['Blog', 'Profile', 'Help'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const devServerUrl = 'http://localhost:3050';
+const devServerUrl = 'http://localhost:3060';
 
 function ResponsiveAppBar() {
     const navigate = useNavigate();

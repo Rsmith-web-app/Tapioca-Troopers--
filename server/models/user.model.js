@@ -7,6 +7,7 @@ const userSchema = new Schema({
   alias: {type: String, maxLength: [12, 'Alias cannot be longer thant 12 characters'], required: [true, 'An alias is required'], trim: true},
   email: {type: String, required: true, unique: true, match: [/^\S+@\S+\.\S+$/, 'Enter a valid email'] },
   password: {type: String, required: true },
+  avatar: {type: String, required: false},
 });
 
 userSchema.pre('save', async function (next) {
