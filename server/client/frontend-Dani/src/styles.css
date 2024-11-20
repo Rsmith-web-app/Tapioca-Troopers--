@@ -1,0 +1,17 @@
+.content {
+    padding: 30px;
+}
+ul .content {
+    display:block ;
+    list-style-type: circle; 
+    margin: 20px 0; 
+    display: block; 
+}
+.troop {
+        position: absolute;
+        top: 150px;
+        right: 150px;
+        width: 500px;
+        height: auto;
+        border-radius: 15%;
+}
