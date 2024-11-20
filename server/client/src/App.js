@@ -4,6 +4,12 @@ import Login from './components/Login/login';
 import Register from './components/Register/register';
 import ProfilePage from './components/Profile/profile';
 
+import Blog from './pages/Blog';
+
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 export default function App() {
   return (
@@ -13,6 +19,7 @@ export default function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<Register />} />
           <Route path='/profile' element={<ProfilePage />} />
+          <Route path='/feed' element={<Blog />} />
         </Routes>
       </BrowserRouter>
     </>
