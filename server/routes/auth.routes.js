@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 const router = express.Router();
-const jwtSecret = process.env.JWT_SECRET || "auth_code";
 
 //Login
 router.post('/login', async (req, res) => {
@@ -18,6 +17,7 @@ router.post('/login', async (req, res) => {
         const isPassword = await bcrypt.compare(password, userCheck.password);
         if (!isPassword) {return res.status(401).json({error: "incorrect password"})};
 
+        const jwtSecret = process.env.JWT_SECRET || "auth_code";
         //Generate a token
         const token = jwt.sign(
            { id: userCheck._id, alias: userCheck.alias},
@@ -51,7 +51,7 @@ router.post('/register', async (req, res) => {
 
         //checks for existing user
         const existingUser = await User.findOne({email});
-        if (!existingUser) {
+        if (existingUser) {
             return res.status(400).json({error: 'User already exists'});
         }
         //check for duplicates
