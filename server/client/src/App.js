@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import ResponsiveAppBar from '@Components/ResponsiveAppBar';
+import navbar from   "@Components/navbar";
+
 
 
 
@@ -10,7 +11,7 @@ const App = () => {
     return(
         <>
         <Router>
-            <ResponsiveAppBar />
+            <navbar />
             <Routes>
                 {/* <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} /> */}
