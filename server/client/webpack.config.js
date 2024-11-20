@@ -41,7 +41,7 @@ module.exports = {
     ],
     devServer: {
         static: path.resolve(__dirname, 'dist'),
-        port: 3000, //designates the port to be used
+        port: 3100, //designates the port to be used
         open: true,
         hot: true,
     },

@@ -1,50 +1,59 @@
-import Storage from '@google-cloud/storage';
+import { Storage } from '@google-cloud/storage';
 import path from 'path';
-import fs from 'fs';
+import { fileURLToPath } from 'url';
 import multer from 'multer';
 import dotenv from 'dotenv';
 
+// Derive __dirname for ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-//Google Cloud Storage Credentials
+// Initialize dotenv
+dotenv.config();
+
+// Google Cloud Storage Initialization
 const storage = new Storage({
     keyFilename: path.join(__dirname, "../keys/tt-gcp-service-key.json"),
     projectId: process.env.GCP_PROJECT_ID,
 });
 
-dotenv.config();
 const bucket = storage.bucket(process.env.GCP_STORAGE_BUCKET);
 
+// Multer Configuration
 const multerStorage = multer.memoryStorage();
-const upload = multer((multerStorage))
+const upload = multer({ storage: multerStorage });
 
+// Function to make bucket public
 async function makeBucketPublic() {
-    await storage.bucket(bucket.name).makePublic();
-    console.log(`Bucket ${bucket.name} is now publicly readable`);
+    try {
+        await bucket.makePublic();
+        console.log(`Bucket ${bucket.name} is now publicly readable`);
+    } catch (error) {
+        console.error("Error making bucket public:", error);
+    }
 }
-makeBucketPublic().catch(console.error);
+makeBucketPublic();
 
 // Function to upload a file to Google Cloud
 const uploadToGoogleCloud = async (file) => {
-    const { path, originalname } = file;
-
-    const destination = `${Date.now()}-${originalname}`;
-    const fileStream = fs.createReadStream(path);
+    const destination = `${Date.now()}-${file.originalname}`;
 
     const blob = bucket.file(destination);
-    const blobStream = blob.createWriteStream({ resumable: false, metadata: { contentType: file.mimetype } });
+    const blobStream = blob.createWriteStream({
+        resumable: false,
+        metadata: { contentType: file.mimetype },
+    });
 
     return new Promise((resolve, reject) => {
-        fileStream
-            .pipe(blobStream)
+        blobStream
             .on("finish", () => {
                 const publicUrl = `https://storage.googleapis.com/${bucket.name}/${destination}`;
                 resolve(publicUrl);
-
             })
             .on("error", (err) => reject(err));
+
         blobStream.end(file.buffer);
     });
 };
 
-module.exports = { uploadToGoogleCloud, makeBucketPublic };
-
+export default uploadToGoogleCloud;

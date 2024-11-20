@@ -3,7 +3,7 @@ import Post from "../models/post.model.js";
 import verifyJWT from "../controllers/authorization.js";
 import Comment from "../models/comment.model.js";
 import multer from 'multer';
-import {uploadToGoogleCloud, makeBucketPublic} from "./controllers/cloud.js";
+import cloud from "../controllers/cloud.js";
 
 
 const upload = multer({dest: '/upload'});
