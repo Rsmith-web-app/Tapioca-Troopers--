@@ -3,10 +3,12 @@ import Post from "../models/post.model.js";
 import verifyJWT from "../controllers/authorization.js";
 import Comment from "../models/comment.model.js";
 import multer from 'multer';
+import { makeBucketPublic, storage, uploadToGoogleCloud } from '../controllers/cloud.js';
 
 
 
 const router = express.Router();
+const bucket = storage.bucket(process.env.GCP_STORAGE_BUCKET);
 
 const upload = multer({storage: multer.memoryStorage(),
     limits: {fileSize: 20 * 1024 * 1024 }, //this sets the file size limit to 20MB
@@ -14,6 +16,7 @@ const upload = multer({storage: multer.memoryStorage(),
 //Create a new Post
 router.post('/post', verifyJWT, upload.single('media'), async (req, res) => {
     const { title, content } = req.body;
+    makeBucketPublic();
     const mediaUrl = req.file ? `/uploads/${req.file.filename}` : null;
 
         // Debug: Log request body and file

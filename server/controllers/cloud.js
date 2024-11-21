@@ -20,40 +20,49 @@ const storage = new Storage({
 const bucket = storage.bucket(process.env.GCP_STORAGE_BUCKET);
 
 // Multer Configuration
-const multerStorage = multer.memoryStorage();
-const upload = multer({ storage: multerStorage });
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 20 * 1024 * 1024 } // 20MB limit
+});
+
 
 // Function to make bucket public
-async function makeBucketPublic() {
+const makeBucketPublic = async () => {
     try {
         await bucket.makePublic();
         console.log(`Bucket ${bucket.name} is now publicly readable`);
     } catch (error) {
         console.error("Error making bucket public:", error);
     }
-}
-makeBucketPublic();
+};
 
 // Function to upload a file to Google Cloud
 const uploadToGoogleCloud = async (file) => {
-    const destination = `${Date.now()}-${file.originalname}`;
+    try {
+        const destination = `${Date.now()}-${file.originalname}`;
+        const blob = bucket.file(destination);
+        const blobStream = blob.createWriteStream({
+            resumable: false,
+            metadata: { contentType: file.mimetype },
+        });
 
-    const blob = bucket.file(destination);
-    const blobStream = blob.createWriteStream({
-        resumable: false,
-        metadata: { contentType: file.mimetype },
-    });
+        return new Promise((resolve, reject) => {
+            blobStream
+                .on("finish", () => {
+                    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${destination}`;
+                    resolve(publicUrl);
+                })
+                .on("error", (err) => {
+                    console.error("Error in blobStream:", err);
+                    reject(err);
+                });
 
-    return new Promise((resolve, reject) => {
-        blobStream
-            .on("finish", () => {
-                const publicUrl = `https://storage.googleapis.com/${bucket.name}/${destination}`;
-                resolve(publicUrl);
-            })
-            .on("error", (err) => reject(err));
-
-        blobStream.end(file.buffer);
-    });
+            blobStream.end(file.buffer);
+        });
+    } catch (error) {
+        console.error("Upload Function Error:", error);
+        throw error;
+    }
 };
 
-export default uploadToGoogleCloud;
+export { uploadToGoogleCloud, makeBucketPublic, upload, storage };
