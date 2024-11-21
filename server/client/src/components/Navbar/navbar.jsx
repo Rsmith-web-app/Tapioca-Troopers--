@@ -33,7 +33,7 @@ export default function Navbar() {
                             Profile
                         </Link>
                         <Link
-                            to="/feed"
+                            to="/"
                             className="text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-sm font-medium"
                         >
                             Feed

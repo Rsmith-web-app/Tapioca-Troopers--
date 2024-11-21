@@ -1,7 +1,7 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import MainContent from '../components/MainContent';
+import MainContent from '../components/HomePage/MainContent';
 import { getPostsApi } from '../api';
 import { useEffect, useState, useCallback } from 'react';
 import Navbar from '../components/Navbar/navbar';

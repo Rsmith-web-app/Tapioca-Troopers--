@@ -8,6 +8,7 @@ export default function ProfilePage() {
     const [post, setPost] = useState(""); // For the post content
     const [media, setMedia] = useState(null); // For media upload
     const [message, setMessage] = useState("");
+ 
     const navigate = useNavigate();
 
     // Fetch user profile from local storage or token verification
