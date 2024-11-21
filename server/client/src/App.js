@@ -1,23 +1,20 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import navbar from   "@Components/navbar";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from './components/Login/login';
+import Register from './components/Register/register';
+import ProfilePage from './components/Profile/profile';
 
 
-
-
-import './style.css';
-
-const App = () => {
-    return(
-        <>
-        <Router>
-            <navbar />
-            <Routes>
-                {/* <Route path='/login' element={<Login />} />
-                <Route path='/register' element={<Register />} /> */}
-            </Routes>
-        </Router>
-        </>
-    )
+export default function App() {
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/sign-up' element={<Register />} />
+          <Route path='/profile' element={<ProfilePage />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
-export default App;
