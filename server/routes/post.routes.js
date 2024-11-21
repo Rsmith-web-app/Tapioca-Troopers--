@@ -2,13 +2,30 @@ import express from 'express';
 import Post from "../models/post.model.js";
 import verifyJWT from "../controllers/authorization.js";
 import Comment from "../models/comment.model.js";
-
+import multer from 'multer';
 
 const router = express.Router();
 
+//Configure multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/");
+    },
+});
+
+const upload = multer({ storage });
+
+
+
 //Create a new Post
-router.post('/post', verifyJWT, async (req, res) => {
-    let { title, content, mediaUrl } = req.body;
+router.post('/post', verifyJWT, upload.single('media'), async (req, res) => {
+    const { title, content } = req.body;
+    const mediaUrl = req.file ? `/uploads/${req.file.filename}` : null;
+
+        // Debug: Log request body and file
+        console.log("Request Body:", req.body);
+        console.log("Uploaded File:", req.file);
+
 
     try {
         const newPost = new Post({ title, content, mediaUrl, author: req.user.id });
@@ -30,7 +47,7 @@ router.get('/post', async (req, res) => {
 });
 
 //Update Post
-router.put('/post/:id', async (req, res) => {
+router.put('/post/:id', verifyJWT, async (req, res) => {
     let { id } = req.params;
     let { title, content } = req.body;
 

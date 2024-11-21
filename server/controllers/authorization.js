@@ -1,18 +1,17 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 const verifyJWT = (req, res, next) => {
-    const token = req.headers.authorization?.split(" ")[1];
-
+    const token = req.header("Authorization")?.split(" ")[1];
     if (!token) {
-        return res.status(403).json({message: "Authentication Revoked, invalid Token"})
+        return res.status(401).json({ message: "Access Denied" });
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || "auth_code");
-        req.user = decoded;
+        const verified = jwt.verify(token, process.env.JWT_SECRET || "auth_code");
+        req.user = verified; // Assign user data to req.user
         next();
-    } catch (error) {
-        res.status(401).json({message: `${error}`});
+    } catch (err) {
+        res.status(403).json({ message: "Invalid Token" });
     }
 };
 

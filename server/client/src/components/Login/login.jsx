@@ -37,7 +37,7 @@ export default function Login({ authToken, AuthUser }) {
                 const data = await resp.json();
                 console.log(data);
                 localStorage.setItem("user", JSON.stringify({ alias: data.alias, token: data.token }));
-                
+
                 setButtonText("Redirecting..");
                 setTimeout(() => {
                     navigate("/profile");
