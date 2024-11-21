@@ -3,12 +3,14 @@ import Post from "../models/post.model.js";
 import verifyJWT from "../controllers/authorization.js";
 import Comment from "../models/comment.model.js";
 import multer from 'multer';
+import upload from '../controllers/upload.js';
+
 
 const router = express.Router();
 
 //Configure multer
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (req, file, cb) => {z
         cb(null, "uploads/");
     },
 });
