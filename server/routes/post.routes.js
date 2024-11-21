@@ -3,12 +3,14 @@ import Post from "../models/post.model.js";
 import verifyJWT from "../controllers/authorization.js";
 import Comment from "../models/comment.model.js";
 import multer from 'multer';
-import upload from '../controllers/upload.js';
+
 
 
 const router = express.Router();
 
-
+const upload = multer({storage: multer.memoryStorage(),
+    limits: {fileSize: 20 * 1024 * 1024 }, //this sets the file size limit to 20MB
+})
 //Create a new Post
 router.post('/post', verifyJWT, upload.single('media'), async (req, res) => {
     const { title, content } = req.body;
