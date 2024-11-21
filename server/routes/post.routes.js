@@ -8,16 +8,6 @@ import upload from '../controllers/upload.js';
 
 const router = express.Router();
 
-//Configure multer
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {z
-        cb(null, "uploads/");
-    },
-});
-
-const upload = multer({ storage });
-
-
 
 //Create a new Post
 router.post('/post', verifyJWT, upload.single('media'), async (req, res) => {
