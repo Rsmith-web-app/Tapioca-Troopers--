@@ -6,8 +6,8 @@ const postSchema = new Schema({
     mediaUrl: {type: String, required: false},
     title: {type: String, required: true},
     content: {type: String, required: true},
-    author: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-    comments: {type: mongoose.Schema.Types.ObjectId, ref: 'Comment', required: false},
+    author: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}, // Reference User model
+    comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}], // Array of Comment references
     createdAt: {type: Date, default: Date.now},
     updatedAt: {type: Date, default: Date.now},
 });
@@ -19,6 +19,5 @@ postSchema.pre('save', function (next) {
     next();
 });
 
-//export post schema
 const Post = mongoose.model('Post', postSchema);
 export default Post;

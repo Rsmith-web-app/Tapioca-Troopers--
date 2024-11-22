@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import multer from 'multer';
 import dotenv from 'dotenv';
+import verifyJWT from "../controllers/authorization.js";
 
 // Derive __dirname for ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -13,7 +14,7 @@ dotenv.config();
 
 // Google Cloud Storage Initialization
 const storage = new Storage({
-    keyFilename: path.join(__dirname, "../keys/tt-gcp-service-key.json"),
+    keyFilename: path.join(__dirname, "../keys/ttkey.json"),
     projectId: process.env.GCP_PROJECT_ID,
 });
 

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "tropicatroopers",
+  "private_key_id": "5c692b12c278a15a34c1869ffc1150dce8ee8462",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDfedsSP68Y7YKq\nDuYJjL90kjOjhmjukF7dVFD52sX4uGCQShNeGptBUCwALVF4/EGwb2XRxmOD3jSD\ny9Ba22qjZUderhv9xTnT1ltExZGMm2HKxcce8IQvOiAFQ/Xr2U0A3yP6wxLkCU4S\n2Zx+Gil9i40UJsCyJaGxaPhgoaNxo6kPqxkSoqolvYFeORCH/K2uhugkzIQuQKwT\nJ0kvpUeBTTb2gLHZCAofiK2ifMd8qaN70UkHPfyeEDR5M9jkm2nLxTK7ogMX8Ncj\n7o68EpocYkG87xIIAjFvJ1RA+tpeDWoqUFkjs3+DcCWSqYMdqu1WIP1XWPdSTLTl\nnDYpkZbvAgMBAAECggEAAgfl454jHIEGVofdjwTxtZwzqe7peqKrzpka2Gy2+CRh\nX7LhNL/db1QVnbWnJlFRHcqjFYbN30jE82dheTQv1FSWk06xdrZ9+wprgaBYSvuJ\nXPjOSpT5QNUwiQTbhEQsjx0KTDxfmADr7f+jaAFkktjJYiPtKKgmCLyPCv5WMXqY\nNRZFJ3spPR0SXJAwptwCLQ95Fz9Sw38lTaGVQvfsLkQl2NCWG59jW9mVFgLpfryl\nDCmaYdtfkyDziAls8ALCtxjYw5ZUYRevjab8tN8/Eu6I3rxQ4LS/jY2OrkIywuok\nUWxF4kdynaSQhwwHuhcwpmCbfk2+RrF2MX2qFsb3gQKBgQDwIS6FLGgBsMrDIsSu\nKiK9Gmd0qxLzggrDiFG5f9H9IXE1+1m9jRQ1zb/eeWAzWKri1nlF0K9PP8BEEcTv\n9x/ayWhpgC8/2Xj3zb6BoCS55f/Lgq4c35Ku+UrbDftvm58D1isiCPfj3GkYPDgg\nmsRcdZvNhwHonHn+0KNl0FpsrwKBgQDuPugt8zwBrxa07sR8z6i9F1A0Gi8XOncF\n3ga7WtJ9UkU0VQxGrLLex2bFohTel5+LLtu9MnyfZdLBnjm+Xshu9Izdbq6GVRlW\nUXkH8zzOJN43yOFkehTi7AUGBR5Lo8UgkyOcEEYvK9Tu7LVVz1MuYlgMPJ6HrQgu\n02P2iYSJwQKBgQClh6oi4Vac+7r6QyhjiuZBh0cT1K4OsHEtEvaLMgKWRQxekvLs\nyKjK4hdGjFL1ckTyc7hLmSyQK7kk8z7X0Hnj/vz75QItOIO8BtcxUiye/V6UcnQF\nsVTTS0P/tybBa/x0z5kSMC55o8HKlBB44VdFCUmqp0t4hw1Ny5MnpzX+PwKBgBe1\nlvGLtTsNq5rR8Cfjmo1G1qp4uJr9LH8e+1iFz1C9cTmmBRS7dwmImoese5szR6NY\nRHHtpk1Omsy97E0vrY6tM5+NtjyUF3NppDvQTwrMzHiMuzF+nLmAd3eD5uHsKF/3\nhKGxVOq41/X3BIzHlyWUj+KX3cbux1Oxoc8VHGWBAoGAKP7lYDekWgNzENERbAxC\n5nrMtvtuhKjig0y/1tGFlzbAjuXdiCiU3uWafb3+XRMcLa8njHWy+weKTOThlZv/\nt0a0xNRA/7R88cbVJsDzoqIDhvuD5qAwRB5V+Xp8wVB7FAnaSAuKGsUz/zBXJp+D\nR+mCl+nZPHgMHnKgsSmOT1k=\n-----END PRIVATE KEY-----\n",
+  "client_email": "admin-63@tropicatroopers.iam.gserviceaccount.com",
+  "client_id": "110952976989904073231",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/admin-63%40tropicatroopers.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
