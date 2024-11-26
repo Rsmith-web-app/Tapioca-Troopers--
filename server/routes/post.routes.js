@@ -49,7 +49,9 @@ router.post('/post', verifyJWT, upload.single('media'), async (req, res) => {
 // Get all Posts
 router.get('/post', async (req, res) => {
     try {
-        const posts = await Post.find().sort({ createdAt: -1 });
+        const posts = await Post.find()
+        .populate('author', 'alias')
+        .sort({createdAt: -1});
         res.status(200).json({ posts });
     } catch (err) {
         res.status(500).json({ error: `An error occurred: ${err.message}` });
