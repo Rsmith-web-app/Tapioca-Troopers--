@@ -159,12 +159,6 @@ export default function MainContent({ topPosts }) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      <div>
-        <Typography variant="h1" gutterBottom>
-          Tapioca Troopers Blog
-        </Typography>
-        <Typography>Stay in the loop with the latest about Tapioca</Typography>
-      </div>
       <Box
         sx={{
           display: { xs: 'flex', sm: 'none' },
@@ -256,4 +250,6 @@ export default function MainContent({ topPosts }) {
       </Grid>
     </Box>
   );
+  
 }
+

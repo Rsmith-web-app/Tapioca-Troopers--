@@ -4,6 +4,7 @@ import Login from './components/Login/login';
 import Register from './components/Register/register';
 import ProfilePage from './components/Profile/profile';
 import PostDetails from './components/PostDetail/postdetail';
+import HomePage from './components/HomePage/Homepage';
 
 import Blog from './pages/Blog';
 
@@ -20,7 +21,8 @@ export default function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<Register />} />
           <Route path='/profile' element={<ProfilePage />} />
-          <Route path='/' element={<Blog />} />
+          <Route path='/' element={<HomePage />} />
+          <Route path='/blog' element={<Blog/>} />
           <Route path='/post/:id' element={<PostDetails />} />
         </Routes>
       </BrowserRouter>

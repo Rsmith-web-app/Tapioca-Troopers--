@@ -16,7 +16,8 @@
     "uuid": "^11.0.3"
   },
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon server/app.js",
+    "start": "node server/app.js"
   },
   "name": "server",
   "version": "1.0.0",
