@@ -22,7 +22,7 @@ export default function App() {
           <Route path='/sign-up' element={<Register />} />
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/' element={<HomePage />} />
-          <Route path='/blog' element={<Blog/>} />
+          <Route path='/blog' element= {<Blog/>}/>
           <Route path='/post/:id' element={<PostDetails />} />
         </Routes>
       </BrowserRouter>
