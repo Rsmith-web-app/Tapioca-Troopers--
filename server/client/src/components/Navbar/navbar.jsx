@@ -26,29 +26,38 @@ export default function Navbar() {
 
                     {/* Center: Navigation Links */}
                     <div className="flex space-x-4">
+                    <Link
+                            to="/"
+                            className="text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-sm font-medium"
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            to="/Blog"
+                            className="text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-sm font-medium"
+                        >
+                            Feed
+                        </Link>
                         <Link
                             to="/profile"
                             className="text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-sm font-medium"
                         >
                             Profile
                         </Link>
+                        {!user.token ? (
                         <Link
-                            to="/"
+                            to="/login"
                             className="text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-sm font-medium"
                         >
-                            Feed
-                        </Link>
-                    </div>
+                            Sign in/Sign up
+                        </Link>) : (
+                            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 px-3 py-2 rounded-md text-sm font-medium">
+                            Log out
+                            </button>
+                        )}
+                        
 
-                    {/* Right: Logout */}
-                    {user.token && (
-                        <button
-                            onClick={handleLogout}
-                            className="bg-red-500 hover:bg-red-600 px-3 py-2 rounded-md text-sm font-medium"
-                        >
-                            Logout
-                        </button>
-                    )}
+                    </div>
                 </div>
             </div>
         </nav>
