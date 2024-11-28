@@ -172,5 +172,21 @@ router.post('/post/:id/comment', verifyJWT, async (req, res) => {
 });
 
 
+//this route is specific for uploading profile photo
+
+router.post('/avatar', verifyJWT, upload.single('avatar'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+        const user = await User.findByIdAndUpdate(req.user._id, { avatar: req.file.filename }, {new: true })
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ message: 'Avatar uploaded successfully'})
+    } catch (error) {
+        res.status(500).json({server: `Caught an error: ${error}`})
+    }
+});
 
 export default router;
