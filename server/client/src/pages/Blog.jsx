@@ -21,7 +21,6 @@ export default function Blog(props) {
   return (
     <>
       <Navbar />
-
       <CssBaseline enableColorScheme />
       <Container
         maxWidth="lg"

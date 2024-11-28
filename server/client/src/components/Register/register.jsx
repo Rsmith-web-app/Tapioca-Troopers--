@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import background from '../../source/background.png';
+import { Link } from "react-router-dom";
 
 export default function Register() {
     const [formData, setFormData] = useState({
@@ -123,7 +124,9 @@ export default function Register() {
                         >
                             {buttonText}
                         </button>
-                       <p>Already have an account? <a href="/login">Sign-in</a> here</p>
+                       <p>Already have an account? <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+                        Sign in
+                    </a> here</p>
                     </form>
                 </div>
             </aside>

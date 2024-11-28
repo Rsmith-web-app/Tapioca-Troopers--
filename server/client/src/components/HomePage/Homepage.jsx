@@ -1,36 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {Box, Typography, Container} from '@mui/material'
 import MainContent from "./MainContent";
 import Navbar from "../Navbar/navbar";
+import { getPostsApi } from "../../api";
 
-const topPosts = [
-    {
-      _id: '1',
-      title: 'Post 1',
-      content: 'This is the content for post 1',
-      mediaUrl: 'https://via.placeholder.com/150',
-      author: 'Author 1',
-      updatedAt: '2024-11-27',
-    },
-    {
-      _id: '2',
-      title: 'Post 2',
-      content: 'This is the content for post 2',
-      mediaUrl: 'https://via.placeholder.com/150',
-      author: 'Author 2',
-      updatedAt: '2024-11-28',
-    },
-    {
-        _id: '3',
-        title: 'Post 3',
-        content: 'This is the content for post 3',
-        mediaUrl: 'https://via.placeholder.com/150',
-        author: 'Author 3',
-        updatedAt: '2024-11-26',
-      },
-  ];
+
 
 export default function HomePage(){
+    const [posts, setPosts] = useState([]);
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const postsData = await getPostsApi();
+            const sortedPosts = postsData.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+            setPosts(sortedPosts.slice(0, 4)); 
+        };
+
+        fetchPosts();
+
+    }, []);
+
     return(
         <Box sx= {{minHeight: '150vh', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                         <Navbar />
@@ -42,7 +30,9 @@ export default function HomePage(){
                     <h4>below is a guide to each tab you can access through the menu bar, as well as a preview of the post feed</h4>
                 </Typography>
                 <Box sx={{display: 'flex', flexDirection: 'row', gap: 4}}>
-                        <MainContent topPosts={topPosts}/>
+                <Box sx={{ flex: 1, maxWidth: '900px' }}>
+                        <MainContent topPosts={posts}/>
+                </Box>
                 <Box sx={{flex: 1, maxWidth: '400px'}}> 
                     <br/>
                     <ul>
