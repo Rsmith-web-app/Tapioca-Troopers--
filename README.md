@@ -10,9 +10,12 @@ This project is for Web Application course.
 
 ## Pages
 
+### Blog Feed Page
 ![Blog Feed Page](./img/BlogFeed.png)
-![SignIn Page](./img/SignIn.png)
-![SignIn Page](./img/SignIn.png)
-![Register Page](./img/Register.png)
+### Post Creation Page
 ![Post Creation Page](./img/PostCreation.png)
+### SignIn Page
+![SignIn Page](./img/SignIn.png)
+### Register Page
+![Register Page](./img/Register.png)
 
