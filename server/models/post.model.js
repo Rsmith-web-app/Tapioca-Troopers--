@@ -8,6 +8,7 @@ const postSchema = new Schema({
     content: {type: String, required: true},
     author: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}, // Reference User model
     comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}], // Array of Comment references
+    category: {type: String, required: false},
     createdAt: {type: Date, default: Date.now},
     updatedAt: {type: Date, default: Date.now},
 });

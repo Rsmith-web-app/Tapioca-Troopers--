@@ -16,7 +16,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import RssFeedRoundedIcon from '@mui/icons-material/RssFeedRounded';
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SyledCard = styled(Card)(({ theme }) => ({
   display: 'flex',
@@ -146,7 +146,7 @@ export default function MainContent({ topPosts }) {
                 />
               </AvatarGroup>
               <Typography variant="caption">
-                {/* {post.author} */}
+                {post.author?.alias || "Anonymous"}
               </Typography>
             </Box>
             <Typography variant="caption">{(new Date(post.updatedAt)).toLocaleDateString()}</Typography>
@@ -197,7 +197,7 @@ export default function MainContent({ topPosts }) {
           <Chip
             onClick={handleClick}
             size="medium"
-            label="Company"
+            label="Technology"
             sx={{
               backgroundColor: 'transparent',
               border: 'none',
@@ -206,7 +206,7 @@ export default function MainContent({ topPosts }) {
           <Chip
             onClick={handleClick}
             size="medium"
-            label="Product"
+            label="Health"
             sx={{
               backgroundColor: 'transparent',
               border: 'none',
@@ -215,7 +215,7 @@ export default function MainContent({ topPosts }) {
           <Chip
             onClick={handleClick}
             size="medium"
-            label="Design"
+            label="Finance"
             sx={{
               backgroundColor: 'transparent',
               border: 'none',
@@ -224,7 +224,16 @@ export default function MainContent({ topPosts }) {
           <Chip
             onClick={handleClick}
             size="medium"
-            label="Engineering"
+            label="Education"
+            sx={{
+              backgroundColor: 'transparent',
+              border: 'none',
+            }}
+          />
+          <Chip
+            onClick={handleClick}
+            size="medium"
+            label="Entertainment"
             sx={{
               backgroundColor: 'transparent',
               border: 'none',
@@ -251,6 +260,6 @@ export default function MainContent({ topPosts }) {
       </Grid>
     </Box>
   );
-  
+
 }
 

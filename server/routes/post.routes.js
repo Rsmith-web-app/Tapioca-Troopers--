@@ -4,7 +4,7 @@ import User from '../models/user.model.js'; // Import the User model
 import verifyJWT from '../controllers/authorization.js';
 import Comment from '../models/comment.model.js';
 import multer from 'multer';
-import { uploadToGoogleCloud } from '../controllers/cloud.js';
+import { uploadFileToBlob } from '../controllers/cloud.js';
 
 const router = express.Router();
 const upload = multer({
@@ -15,36 +15,36 @@ const upload = multer({
 // Create a new Post
 router.post('/post', verifyJWT, upload.single('media'), async (req, res) => {
     const { title, content } = req.body;
-    const alias = req.user.alias; // Extract alias from the token
+    const alias = req.user.alias;
     let mediaUrl = null;
-
+  
     try {
-        // Fetch the user's ObjectId using the alias
-        const user = await User.findOne({ alias });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        // Upload media if provided
-        if (req.file) {
-            mediaUrl = await uploadToGoogleCloud(req.file);
-        }
-
-        // Create and save the post
-        const newPost = new Post({
-            title,
-            content,
-            mediaUrl,
-            author: user._id, // Use the ObjectId of the user
-        });
-        await newPost.save();
-
-        res.status(201).json({ message: 'Post created successfully!', post: newPost });
+      // Find user by alias
+      const user = await User.findOne({ alias });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Upload media if present
+      if (req.file) {
+        mediaUrl = await uploadFileToBlob(req.file);
+      }
+  
+      // Create the new post
+      const newPost = new Post({
+        title,
+        content,
+        mediaUrl,
+        author: user._id,
+      });
+      await newPost.save();
+  
+      res.status(201).json({ message: 'Post created successfully!', post: newPost });
     } catch (error) {
-        console.error('Error creating post:', error);
-        res.status(500).json({ message: `Failed to create post: ${error.message}` });
+      console.error('Error creating post:', error);
+      res.status(500).json({ message: `Failed to create post: ${error.message}` });
     }
-});
+  });
 
 // Get all Posts
 router.get('/post', async (req, res) => {

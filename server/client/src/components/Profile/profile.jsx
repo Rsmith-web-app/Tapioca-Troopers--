@@ -11,7 +11,10 @@ export default function ProfilePage() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [media, setMedia] = useState(null);
+    const [category, setCategory] = useState("");
     const [editingPostId, setEditingPostId] = useState(null); // Track post being edited
+
+    const categories = ["Technology", "Health", "Finance", "Education", "Entertainment"];
 
     const navigate = useNavigate();
 
@@ -49,6 +52,7 @@ export default function ProfilePage() {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("content", content);
+        formData.append("category", category);
         if (media) formData.append("media", media);
 
         const url = editingPostId
@@ -138,6 +142,22 @@ export default function ProfilePage() {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Category</label>
+                            <select
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            >
+                                <option value="" disabled>Select a category</option>
+                                {categories.map((cat) => (
+                                    <option key={cat} value={cat}>
+                                        {cat}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Content</label>

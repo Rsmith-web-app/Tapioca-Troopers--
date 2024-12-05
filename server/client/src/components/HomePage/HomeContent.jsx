@@ -145,7 +145,7 @@ export default function HomeContent({ topPosts }) {
                 />
               </AvatarGroup>
               <Typography variant="caption">
-                {/* {post.author} */}
+               {post.author}
               </Typography>
             </Box>
             <Typography variant="caption">{(new Date(post.updatedAt)).toLocaleDateString()}</Typography>

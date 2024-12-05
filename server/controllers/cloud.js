@@ -1,69 +1,24 @@
-import { Storage } from '@google-cloud/storage';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import multer from 'multer';
-import dotenv from 'dotenv';
-import verifyJWT from "../controllers/authorization.js";
+import { BlobServiceClient } from '@azure/storage-blob';
+import 'dotenv/config';
 
-// Derive __dirname for ES module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const sasToken = process.env.SAS_TOKEN;
+const accountName = process.env.ACCOUNT_NAME;
+const containerName = process.env.CONTAINER_NAME;
 
-// Initialize dotenv
-dotenv.config();
+const blobServiceClient = new BlobServiceClient(
+    `https://${accountName}.blob.core.windows.net/?${sasToken}`
+);
+const containerClient = blobServiceClient.getContainerClient(containerName);
 
-// Google Cloud Storage Initialization
-const storage = new Storage({
-    keyFilename: path.join(__dirname, "../keys/ttkey.json"),
-    projectId: process.env.GCP_PROJECT_ID,
-});
-
-const bucket = storage.bucket(process.env.GCP_STORAGE_BUCKET);
-
-// Multer Configuration
-const upload = multer({
-    storage: multer.memoryStorage(),
-    limits: { fileSize: 20 * 1024 * 1024 } // 20MB limit
-});
-
-
-// Function to make bucket public
-const makeBucketPublic = async () => {
+export const uploadFileToBlob = async (file) => {
     try {
-        await bucket.makePublic();
-        console.log(`Bucket ${bucket.name} is now publicly readable`);
+        const blobName = `${Date.now()}-${file.originalname}`;
+        const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+        await blockBlobClient.uploadData(file.buffer);
+        const fileUrl = `https://${accountName}.blob.core.windows.net/${containerName}/${blobName}`;
+        return fileUrl;
     } catch (error) {
-        console.error("Error making bucket public:", error);
+        throw new Error(`Error uploading file to blob: ${error.message}`);
     }
 };
-
-// Function to upload a file to Google Cloud
-const uploadToGoogleCloud = async (file) => {
-    try {
-        const destination = `${Date.now()}-${file.originalname}`;
-        const blob = bucket.file(destination);
-        const blobStream = blob.createWriteStream({
-            resumable: false,
-            metadata: { contentType: file.mimetype },
-        });
-
-        return new Promise((resolve, reject) => {
-            blobStream
-                .on("finish", () => {
-                    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${destination}`;
-                    resolve(publicUrl);
-                })
-                .on("error", (err) => {
-                    console.error("Error in blobStream:", err);
-                    reject(err);
-                });
-
-            blobStream.end(file.buffer);
-        });
-    } catch (error) {
-        console.error("Upload Function Error:", error);
-        throw error;
-    }
-};
-
-export { uploadToGoogleCloud, makeBucketPublic, upload, storage };
