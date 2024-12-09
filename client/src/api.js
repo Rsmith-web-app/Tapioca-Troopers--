@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const serverUrl = process.env.SERVER_URL || 'http://localhost:3060';
-console.warn(serverUrl);
+const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 const getPostsApi = async () => {
   const response = await axios.get(`${serverUrl}/api/post/`);
@@ -29,6 +28,7 @@ const userRegister = async (formData) => {
     },
     body: JSON.stringify(formData),
   });
+  return resp;
 }
 
 export { getPostsApi, userLogin, userRegister };
