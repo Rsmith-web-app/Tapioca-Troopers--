@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import background from '../../source/background.png';
 import { Link } from "react-router-dom";
+import { userRegister } from '../../api';
 
 export default function Register() {
     const [formData, setFormData] = useState({
@@ -26,13 +27,7 @@ export default function Register() {
         setButtonText("Registering...");
 
         try {
-            const resp = await fetch("http://localhost:3060/api/register", {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            });
+            const resp = await userRegister(formData);
 
             if (resp.ok) {
                 const data = await resp.json();

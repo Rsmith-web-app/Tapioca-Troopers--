@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { userLogin } from '../../api';
 
 export default function Login({ authToken, AuthUser }) {
     const [formData, setFormData] = useState({
@@ -25,13 +26,7 @@ export default function Login({ authToken, AuthUser }) {
         setButtonText("Submitting..");
 
         try {
-            const resp = await fetch("http://localhost:3060/api/login", {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            });
+            const resp = await userLogin(formData);
 
             if (resp.ok) {
                 const data = await resp.json();
