@@ -30,7 +30,7 @@ export default function ProfilePage() {
 
     const fetchUserPosts = async (alias, token) => {
         try {
-            const response = await fetch(`http://localhost:3060/api/posts/user/${alias}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/posts/user/${alias}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -56,8 +56,8 @@ export default function ProfilePage() {
         if (media) formData.append("media", media);
 
         const url = editingPostId
-            ? `http://localhost:3060/api/post/${editingPostId}`
-            : `http://localhost:3060/api/post`;
+            ? `${process.env.REACT_APP_SERVER_URL}/api/post/${editingPostId}`
+            : `${process.env.REACT_APP_SERVER_URL}/api/post`;
         const method = editingPostId ? "PUT" : "POST";
 
         try {
@@ -94,7 +94,7 @@ export default function ProfilePage() {
 
     const handleDelete = async (postId) => {
         try {
-            const response = await fetch(`http://localhost:3060/api/post/${postId}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/post/${postId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${user.token}`,
