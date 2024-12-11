@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { userLogin } from '../../api';
 
 export default function Login({ authToken, AuthUser }) {
@@ -116,9 +116,9 @@ export default function Login({ authToken, AuthUser }) {
                 </form>
                 <p className="mt-6 text-center text-sm text-gray-600">
                     Don't have an account?{' '}
-                    <a href="/sign-up" className="font-medium text-indigo-600 hover:text-indigo-500">
+                    <Link to="/sign-up" className="font-medium text-indigo-600 hover:text-indigo-500">
                         Sign up
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>

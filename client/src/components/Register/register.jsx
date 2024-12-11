@@ -119,9 +119,9 @@ export default function Register() {
                         >
                             {buttonText}
                         </button>
-                       <p>Already have an account? <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+                       <p>Already have an account? <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
                         Sign in
-                    </a> here</p>
+                    </Link> here</p>
                     </form>
                 </div>
             </aside>
