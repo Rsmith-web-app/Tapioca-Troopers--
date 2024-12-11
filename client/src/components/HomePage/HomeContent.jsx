@@ -145,7 +145,7 @@ export default function HomeContent({ topPosts }) {
                 />
               </AvatarGroup>
               <Typography variant="caption">
-               {post.author}
+                {post.author?.alias || 'Anonymous'}
               </Typography>
             </Box>
             <Typography variant="caption">{(new Date(post.updatedAt)).toLocaleDateString()}</Typography>
@@ -164,6 +164,5 @@ export default function HomeContent({ topPosts }) {
       </Grid>
     </Box>
   );
-  
-}
 
+}
