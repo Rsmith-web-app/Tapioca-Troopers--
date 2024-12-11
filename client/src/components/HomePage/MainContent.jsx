@@ -99,62 +99,64 @@ export default function MainContent({ topPosts }) {
         size={{ xs: 12, md: 6 }}
         key={post._id}
       >
-        <SyledCard
-          variant="outlined"
-          onFocus={() => handleFocus(0)}
-          onBlur={handleBlur}
-          tabIndex={0}
-          className={focusedCardIndex === 0 ? 'Mui-focused' : ''}
-        >
-          <CardMedia
-            component="img"
-            alt="green iguana"
-            image={post.mediaUrl}
-            sx={{
-              aspectRatio: '16 / 9',
-              borderBottom: '1px solid',
-              borderColor: 'divider',
-            }}
-          />
-          <SyledCardContent>
-            <Typography gutterBottom variant="h6" component="div">
-              {post.title}
-            </Typography>
-            <StyledTypography variant="body2" color="text.secondary" gutterBottom>
-              {post.content.slice(0, 80)} {post.content.length > 80 ? '...' : ''}
-            </StyledTypography>
-          </SyledCardContent>
-
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: 2,
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '16px',
-            }}
+        <Link to={"/post/" + post._id}>
+          <SyledCard
+            variant="outlined"
+            onFocus={() => handleFocus(0)}
+            onBlur={handleBlur}
+            tabIndex={0}
+            className={focusedCardIndex === 0 ? 'Mui-focused' : ''}
           >
-            <Box
-              sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center' }}
-            >
-              <AvatarGroup max={3}>
-                <Avatar
-                  alt={post.author}
-                  src={"https://picsum.photos/24/24/?random=" + post.author}
-                  sx={{ width: 24, height: 24 }}
-                />
-              </AvatarGroup>
-              <Typography variant="caption">
-                {post.author?.alias || "Anonymous"}
+            <CardMedia
+              component="img"
+              alt="green iguana"
+              image={post.mediaUrl}
+              sx={{
+                aspectRatio: '16 / 9',
+                borderBottom: '1px solid',
+                borderColor: 'divider',
+              }}
+            />
+            <SyledCardContent>
+              <Typography gutterBottom variant="h6" component="div">
+                {post.title}
               </Typography>
+              <StyledTypography variant="body2" color="text.secondary" gutterBottom>
+                {post.content.slice(0, 80)} {post.content.length > 80 ? '...' : ''}
+              </StyledTypography>
+            </SyledCardContent>
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                gap: 2,
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '16px',
+              }}
+            >
+              <Box
+                sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center' }}
+              >
+                <AvatarGroup max={3}>
+                  <Avatar
+                    alt={post.author}
+                    src={"https://picsum.photos/24/24/?random=" + post.author}
+                    sx={{ width: 24, height: 24 }}
+                  />
+                </AvatarGroup>
+                <Typography variant="caption">
+                  {post.author?.alias || "Anonymous"}
+                </Typography>
+              </Box>
+              <Typography variant="caption">{(new Date(post.updatedAt)).toLocaleDateString()}</Typography>
             </Box>
-            <Typography variant="caption">{(new Date(post.updatedAt)).toLocaleDateString()}</Typography>
-          </Box>
 
 
-        </SyledCard>
-      </Grid>
+          </SyledCard>
+        </Link>
+      </Grid >
     )
   })
 
@@ -262,4 +264,3 @@ export default function MainContent({ topPosts }) {
   );
 
 }
-
